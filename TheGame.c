@@ -3,6 +3,7 @@
 //
 
 #include "TheGame.h"
+#include "systems/Movement.h"
 
 Game *CreateGame(const char *title, int sWidth, int sHeight, int vWidth, int vHeight, int fps)
 {
@@ -19,11 +20,13 @@ Game *CreateGame(const char *title, int sWidth, int sHeight, int vWidth, int vHe
     newgame->fps = fps;
     newgame->target = LoadRenderTexture(vWidth, vHeight);
     newgame->textureFilter = TEXTURE_FILTER_POINT;
+    
     return newgame;
 }
 
 void DestroyGame(Game *game)
 {
+    ecs_fini(game->world);
     free(game->title);
     UnloadRenderTexture(game->target);
     free(game);
@@ -38,6 +41,11 @@ void RunGame(Game *game)
 
     SetTargetFPS(game->fps);
 
+    game->world = ecs_init();
+
+    // Register ECS systems
+    RegisterMovementSystem(game->world);
+
     // Huvudloop
     while (!WindowShouldClose())
     {
@@ -48,7 +56,7 @@ void RunGame(Game *game)
 
 void UpdateGame(Game *game)
 {
-
+    ecs_progress(game->world, 0.0f);
 }
 
 void DrawGame(Game *game)
