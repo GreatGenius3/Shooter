@@ -1,0 +1,76 @@
+{
+  "version": 3,
+  "configurePresets": [
+    {
+      "name": "ninja-base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}"
+    },
+    {
+      "name": "msvc-base",
+      "hidden": true,
+      "generator": "Visual Studio 18 2026",
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "architecture": "x64"
+    },
+    {
+      "name": "ninja-debug-shared",
+      "displayName": "Ninja: Debug + Shared",
+      "inherits": "ninja-base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "BUILD_SHARED_LIBS": "ON"
+      }
+    },
+    {
+      "name": "ninja-debug-static",
+      "displayName": "Ninja: Debug + Static",
+      "inherits": "ninja-base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "BUILD_SHARED_LIBS": "OFF"
+      }
+    },
+    {
+      "name": "ninja-release-shared",
+      "displayName": "Ninja: Release + Shared",
+      "inherits": "ninja-base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "BUILD_SHARED_LIBS": "ON"
+      }
+    },
+    {
+      "name": "ninja-release-static",
+      "displayName": "Ninja: Release + Static",
+      "inherits": "ninja-base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "BUILD_SHARED_LIBS": "OFF"
+      }
+    },
+    {
+      "name": "msvc-debug",
+      "displayName": "Visual Studio: Debug",
+      "inherits": "msvc-base"
+    },
+    {
+      "name": "msvc-release",
+      "displayName": "Visual Studio: Release",
+      "inherits": "msvc-base"
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "msvc-debug",
+      "configurePreset": "msvc-debug",
+      "configuration": "Debug"
+    },
+    {
+      "name": "msvc-release",
+      "configurePreset": "msvc-release",
+      "configuration": "Release"
+    }
+  ]
+}
