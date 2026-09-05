@@ -52,12 +52,32 @@ include_directories(${PHYSFS_INCLUDE_DIR})
 # Add the include path for Luajit
 include_directories(${LUAJIT_INCLUDE_DIR})
 
+# Add the include path for ECS
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/ecs)
+
 link_directories("${SDL_LIB_DIR}")
 link_directories("${RAYLIB_LIB_DIR}")
 
 add_executable(Shooter main.c
         TheGame.c
-        TheGame.h)
+        TheGame.h
+        ecs/systems/Movement.c
+        ecs/systems/Movement.h
+        ecs/systems/Input.c
+        ecs/systems/Input.h
+        ecs/components/Sprite.h
+        ecs/components/Position.h
+        ecs/components/Velocity.h
+        ecs/components/Components.h
+        ecs/components/Components.c
+        ecs/systems/Systems.h
+        ecs/systems/Systems.c
+        ecs/systems/RenderSystem.c
+        ecs/systems/RenderSystem.h
+        ecs/components/Render.h
+        ecs/components/Bounds.h
+        ecs/components/CollisionBox.h
+        ecs/components/PlayerInput.h)
 
 # Sätt kompilerings-definitions baserat på build mode (Debug eller Release)
 # Länka till rätt .dll.a-fil baserat på build-typ (Fixar MinGW-felet)
