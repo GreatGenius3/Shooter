@@ -65,6 +65,10 @@ add_executable(Shooter main.c
         ecs/systems/Movement.h
         ecs/systems/Input.c
         ecs/systems/Input.h
+        ecs/systems/Weapon.c
+        ecs/systems/Weapon.h
+        ecs/systems/Projectile.c
+        ecs/systems/Projectile.h
         ecs/components/Sprite.h
         ecs/components/Position.h
         ecs/components/Velocity.h
@@ -77,7 +81,9 @@ add_executable(Shooter main.c
         ecs/components/Render.h
         ecs/components/Bounds.h
         ecs/components/CollisionBox.h
-        ecs/components/PlayerInput.h)
+        ecs/components/PlayerInput.h
+        ecs/components/Weapon.h
+        ecs/components/Projectile.h)
 
 # Sätt kompilerings-definitions baserat på build mode (Debug eller Release)
 # Länka till rätt .dll.a-fil baserat på build-typ (Fixar MinGW-felet)
