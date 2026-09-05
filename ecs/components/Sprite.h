@@ -5,7 +5,6 @@
 #include "flecs.h"
 
 typedef struct Sprite {
-    Texture2D texture;
     Rectangle sourceRect;
     Color tint;
 } Sprite;

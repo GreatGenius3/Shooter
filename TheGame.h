@@ -25,6 +25,8 @@ typedef struct Game
     RenderTexture2D target;
     int textureFilter;
     ecs_world_t *world;
+
+    Font nesFont;
 } Game;
 
 Game *CreateGame(const char *title, int sWidth, int sHeight, int vWidth, int vHeight, int fps);

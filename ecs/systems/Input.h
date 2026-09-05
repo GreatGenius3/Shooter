@@ -2,8 +2,8 @@
 // Created by snill on 2026-09-05.
 //
 
-#ifndef SHOOTER_MOVEMENT_H
-#define SHOOTER_MOVEMENT_H
+#ifndef SHOOTER_INPUT_H
+#define SHOOTER_INPUT_H
 
 #include "flecs.h"
 
@@ -11,10 +11,10 @@
 extern "C" {
 #endif
 
-void MovementSystem(ecs_iter_t *it);
+void KeyboardInputSystem(ecs_iter_t *it);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif //SHOOTER_MOVEMENT_H
+#endif //SHOOTER_INPUT_H
