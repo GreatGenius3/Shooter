@@ -100,7 +100,7 @@ void RunGame(Game *game)
         .cooldown = 0.2f, // 200ms mellan skott
         .lastFireTime = 0.0f,
         .projectileSpeed = 400.0f, // pixlar per sekund
-        .projectileLifetime = 2.0f // 2 sekunder
+        .projectileLifetime = 1.0f // 2 sekunder
     };
     
     Bounds playerBounds = {

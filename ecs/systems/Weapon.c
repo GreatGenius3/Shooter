@@ -5,6 +5,7 @@
 #include "Weapon.h"
 #include "../components/components.h"
 #include "raylib.h"
+#include "raymath.h"
 
 void WeaponSystem(ecs_iter_t *it) {
     Position *pos = ecs_field(it, Position, 0);
@@ -16,11 +17,30 @@ void WeaponSystem(ecs_iter_t *it) {
         // Kolla om vi kan skjuta (cooldown passerad)
         if (currentTime >= weapon[i].lastFireTime + weapon[i].cooldown) {
             if (IsKeyDown(weapon[i].fireKey)) {
+                // Hämta Velocity från entiteten för att bestämma riktning
+                Velocity *entityVel = ecs_get(it->world, it->entities[i], Velocity);
+                
                 // Skapa en projektil
                 ecs_entity_t projectile = ecs_new(it->world);
                 
                 Position projPos = {pos[i].x, pos[i].y};
-                Velocity projVel = {0.0f, -weapon[i].projectileSpeed}; // Skjut uppåt för nu
+                Velocity projVel = {0.0f, 0.0f};
+                
+                // Bestäm skjutriktning baserat på entitetens Velocity
+                if (entityVel) {
+                    float length = sqrtf(entityVel->x * entityVel->x + entityVel->y * entityVel->y);
+                    if (length > 0.01f) {
+                        // Normalisera och applicera projektilhastighet
+                        projVel.x = (entityVel->x / length) * weapon[i].projectileSpeed;
+                        projVel.y = (entityVel->y / length) * weapon[i].projectileSpeed;
+                    } else {
+                        // Om entiteten står stilla, skjut uppåt som standard
+                        projVel.y = -weapon[i].projectileSpeed;
+                    }
+                } else {
+                    // Ingen Velocity, skjut uppåt som standard
+                    projVel.y = -weapon[i].projectileSpeed;
+                }
                 
                 SpriteRenderer projRenderer = {
                     .source = {0, 0, 8, 8},
