@@ -95,6 +95,16 @@ void RunGame(Game *game)
         .rightKey = KEY_D
     };
     
+    Weapon playerWeapon = {
+        .fireKey = KEY_SPACE,
+        .cooldown = 0.2f, // 200ms mellan skott
+        .lastFireTime = 0.0f,
+        .projectileSpeed = 400.0f, // pixlar per sekund
+        .projectileLifetime = 1.0f // 2 sekunder
+    };
+    
+    LastDirection playerLastDir = {0.0f, -1.0f}; // Standard: skjut uppåt
+    
     Bounds playerBounds = {
         .minX = 0.0f,
         .minY = 0.0f,
@@ -107,6 +117,8 @@ void RunGame(Game *game)
     ecs_set_ptr(game->world, playerEntity, Velocity, &playerVel);
     ecs_set_ptr(game->world, playerEntity, SpriteRenderer, &playerRenderer);
     ecs_set_ptr(game->world, playerEntity, PlayerInput, &playerInput);
+    ecs_set_ptr(game->world, playerEntity, Weapon, &playerWeapon);
+    ecs_set_ptr(game->world, playerEntity, LastDirection, &playerLastDir);
     ecs_set_ptr(game->world, playerEntity, Bounds, &playerBounds);
 
     // Huvudloop

@@ -37,5 +37,14 @@ void KeyboardInputSystem(ecs_iter_t *it) {
         
         vel[i].x = moveX * input[i].speed;
         vel[i].y = moveY * input[i].speed;
+        
+        // Uppdatera LastDirection om entiteten rör sig
+        LastDirection *lastDir = ecs_get_mut(it->world, it->entities[i], LastDirection);
+        if (lastDir) {
+            if (moveX != 0.0f || moveY != 0.0f) {
+                lastDir->x = moveX;
+                lastDir->y = moveY;
+            }
+        }
     }
 }
