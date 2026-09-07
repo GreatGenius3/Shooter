@@ -10,6 +10,7 @@ ECS_COMPONENT_DECLARE(CollisionBox);
 ECS_COMPONENT_DECLARE(PlayerInput);
 ECS_COMPONENT_DECLARE(Weapon);
 ECS_COMPONENT_DECLARE(Projectile);
+ECS_COMPONENT_DECLARE(LastDirection);
 
 void init_components(ecs_world_t *world)
 {
@@ -23,4 +24,5 @@ void init_components(ecs_world_t *world)
     ECS_COMPONENT_DEFINE(world, PlayerInput);
     ECS_COMPONENT_DEFINE(world, Weapon);
     ECS_COMPONENT_DEFINE(world, Projectile);
+    ECS_COMPONENT_DEFINE(world, LastDirection);
 }

@@ -18,24 +18,38 @@ void WeaponSystem(ecs_iter_t *it) {
         if (currentTime >= weapon[i].lastFireTime + weapon[i].cooldown) {
             if (IsKeyDown(weapon[i].fireKey)) {
                 // Hämta Velocity från entiteten för att bestämma riktning
-                Velocity *entityVel = ecs_get(it->world, it->entities[i], Velocity);
+                const Velocity *entityVel = ecs_get(it->world, it->entities[i], Velocity);
                 
                 // Skapa en projektil
                 ecs_entity_t projectile = ecs_new(it->world);
                 
                 Position projPos = {pos[i].x, pos[i].y};
                 Velocity projVel = {0.0f, 0.0f};
+                const SpriteRenderer *getSprite = ecs_get(it->world, it->entities[i], SpriteRenderer);
+
+                // Kolla om vi har en lastDirection data
+                const LastDirection *lastDir = ecs_get(it->world, it->entities[i], LastDirection);
+                LastDirection defaultDir = {0.0f, -1.0f}; // Standard: uppåt
+                if (!lastDir) {
+                    lastDir = &defaultDir;
+                }
                 
                 // Bestäm skjutriktning baserat på entitetens Velocity
-                if (entityVel) {
+                if (entityVel)
+                {
                     float length = sqrtf(entityVel->x * entityVel->x + entityVel->y * entityVel->y);
-                    if (length > 0.01f) {
+                    if (length > 0.01f)
+                    {
                         // Normalisera och applicera projektilhastighet
                         projVel.x = (entityVel->x / length) * weapon[i].projectileSpeed;
                         projVel.y = (entityVel->y / length) * weapon[i].projectileSpeed;
-                    } else {
+                    } else
+                    {
+                        // const LastDirection *lastDir = ecs_get(it->world, it->entities[i], LastDirection);
                         // Om entiteten står stilla, skjut uppåt som standard
-                        projVel.y = -weapon[i].projectileSpeed;
+                        // projVel.y = -weapon[i].projectileSpeed;
+                        projVel.y = lastDir->y * weapon[i].projectileSpeed;
+                        projVel.x = lastDir->x * weapon[i].projectileSpeed;
                     }
                 } else {
                     // Ingen Velocity, skjut uppåt som standard

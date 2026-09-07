@@ -103,6 +103,8 @@ void RunGame(Game *game)
         .projectileLifetime = 1.0f // 2 sekunder
     };
     
+    LastDirection playerLastDir = {0.0f, -1.0f}; // Standard: skjut uppåt
+    
     Bounds playerBounds = {
         .minX = 0.0f,
         .minY = 0.0f,
@@ -116,6 +118,7 @@ void RunGame(Game *game)
     ecs_set_ptr(game->world, playerEntity, SpriteRenderer, &playerRenderer);
     ecs_set_ptr(game->world, playerEntity, PlayerInput, &playerInput);
     ecs_set_ptr(game->world, playerEntity, Weapon, &playerWeapon);
+    ecs_set_ptr(game->world, playerEntity, LastDirection, &playerLastDir);
     ecs_set_ptr(game->world, playerEntity, Bounds, &playerBounds);
 
     // Huvudloop

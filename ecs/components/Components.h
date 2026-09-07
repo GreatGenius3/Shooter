@@ -11,6 +11,7 @@
 #include "PlayerInput.h"
 #include "Weapon.h"
 #include "Projectile.h"
+#include "LastDirection.h"
 
 extern ECS_COMPONENT_DECLARE(Position);
 extern ECS_COMPONENT_DECLARE(Velocity);
@@ -22,6 +23,7 @@ extern ECS_COMPONENT_DECLARE(CollisionBox);
 extern ECS_COMPONENT_DECLARE(PlayerInput);
 extern ECS_COMPONENT_DECLARE(Weapon);
 extern ECS_COMPONENT_DECLARE(Projectile);
+extern ECS_COMPONENT_DECLARE(LastDirection);
 
 // 3. En smidig funktion för att registrera allt i Flecs-världen vid start
 void init_components(ecs_world_t *world);

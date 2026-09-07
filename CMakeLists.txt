@@ -83,7 +83,8 @@ add_executable(Shooter main.c
         ecs/components/CollisionBox.h
         ecs/components/PlayerInput.h
         ecs/components/Weapon.h
-        ecs/components/Projectile.h)
+        ecs/components/Projectile.h
+        ecs/components/LastDirection.h)
 
 # Sätt kompilerings-definitions baserat på build mode (Debug eller Release)
 # Länka till rätt .dll.a-fil baserat på build-typ (Fixar MinGW-felet)
